@@ -1,76 +1,43 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Создать студента</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input {
-            margin-bottom: 10px;
-            padding: 5px;
-            width: 100%;
-            max-width: 300px;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .error {
-            color: red;
-            font-size: 0.9em;
-        }
-        .notice {
-            color: green;
-            font-size: 1em;
-        }
-    </style>
+    <title>Student API Form</title>
+    <script defer src="app.js"></script>
 </head>
 <body>
-<h1>Создать студента</h1>
+<h1>Student API Form</h1>
 
-<% if flash[:error] %>
-<div class="error"><%= flash[:error] %></div>
-<% end %>
-
-<% if flash[:notice] %>
-<div class="notice"><%= flash[:notice] %></div>
-<% end %>
-
-<form id="create-student-form" action="/students" method="POST">
-    <!-- CSRF Token для защиты от CSRF-атак -->
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-
-    <label for="first_name">Имя:</label>
-    <input type="text" id="first_name" name="student[first_name]" value="<%= @student&.first_name %>" required>
-
-    <label for="last_name">Фамилия:</label>
-    <input type="text" id="last_name" name="student[last_name]" value="<%= @student&.last_name %>" required>
-
-    <label for="surname">Отчество:</label>
-    <input type="text" id="surname" name="student[surname]" value="<%= @student&.surname %>" required>
-
-    <label for="class_id">№ класса:</label>
-    <input type="number" id="class_id" name="student[class_id]" value="<%= @student&.class_id %>" required>
-
-    <label for="school_id">№ школы:</label>
-    <input type="number" id="school_id" name="student[school_id]" value="<%= @student&.school_id %>" required>
-
-    <button type="submit">Создать студента</button>
+<h2>Create Student</h2>
+<form id="create-student-form">
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name" required><br>
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last_name" name="last_name" required><br>
+    <label for="surname">Surname:</label>
+    <input type="text" id="surname" name="surname" required><br>
+    <label for="class_id">Class ID:</label>
+    <input type="number" id="class_id" name="class_id" required><br>
+    <label for="school_id">School ID:</label>
+    <input type="number" id="school_id" name="school_id" required><br>
+    <button type="submit">Create Student</button>
 </form>
+
+<h2>Delete Student</h2>
+<form id="delete-student-form">
+    <label for="delete_student_id">Student ID:</label>
+    <input type="number" id="delete_student_id" name="delete_student_id" required><br>
+    <button type="submit">Delete Student</button>
+</form>
+
+<h2>Get Student</h2>
+<form id="get-student-form">
+    <label for="get_student_id">Student ID:</label>
+    <input type="number" id="get_student_id" name="get_student_id" required><br>
+    <button type="submit">Get Student</button>
+</form>
+
+<div id="response"></div>
 </body>
 </html>

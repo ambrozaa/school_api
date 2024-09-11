@@ -2,9 +2,16 @@ class StudentsController < ApplicationController
   def create
     student = Student.new(student_params)
     if student.save
-      render json: student, status: :created, location: student
+      student_data = { id: student.id,
+                       first_name: student.first_name,
+                       last_name: student.last_name,
+                       surname: student.surname,
+                       class_id: student.class_id,
+                       school_id: student.school_id
+      }
+      render json: student_data.as_json.merge({ auth_token: student.auth_token }), status: :created, location: student
     else
-      render json: student.errors, status: :unprocessable_entity
+      render json: { error: "Invalid input" }, status: 405
     end
   end
 
@@ -24,3 +31,4 @@ class StudentsController < ApplicationController
     params.require(:student).permit(:first_name, :last_name, :surname, :class_id, :school_id)
   end
 end
+
