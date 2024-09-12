@@ -4,7 +4,7 @@ class Student < ApplicationRecord
 
   validates :first_name, :last_name, :surname, :class_id, :school_id, presence: true
 
-  after_create :generate_auth_token
+  before_create :generate_auth_token
 
   private
 

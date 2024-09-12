@@ -13,17 +13,20 @@ class StudentsController < ApplicationController
                        auth_token: student.auth_token
       }
       render json: student_data, status: :created, location: student
-             request.headers["X-AUTH-TOKEN"] = student.auth_token
+      headers["X-Auth-Token"] = student.auth_token
+      #headers["Authorization"] = "Bearer #{student.auth_token}"
+      #headers: { 'X-Auth-Token': student.auth_token }
     else
       render json: { error: "Invalid input" }, status: 405
     end
   end
 
   def destroy
-    @student = Student.find_by(id: params[:id])
+    @student = Student.find(params[:id])
     if @student
       @student.destroy
       head :no_content
+      render json: { text: 'Студент удален'}, status: 200
     else
       render json: { error: 'Некорректный id студента' }, status: 400
     end
@@ -41,6 +44,10 @@ class StudentsController < ApplicationController
   def valid_token?(token)
     # Проверка, что токен существует в базе данных
     Student.exists?(auth_token: token)
+  end
+
+  def generate_unique_token(student_id)
+    return SecureRandom.urlsafe_base64(32)
   end
 
   def student_params
