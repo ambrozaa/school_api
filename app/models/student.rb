@@ -4,11 +4,12 @@ class Student < ApplicationRecord
 
   validates :first_name, :last_name, :surname, :class_id, :school_id, presence: true
 
-  before_create :generate_auth_token
+  after_create :generate_auth_token
 
   private
 
   def generate_auth_token
     self.auth_token = Digest::SHA256.hexdigest("#{self.id}#{Rails.application.credentials.secret_key_base}")
+    save
   end
 end
