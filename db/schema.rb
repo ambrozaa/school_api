@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_11_074347) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_13_145319) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "school_classes", force: :cascade do |t|
     t.integer "number"
     t.string "letter"
-    t.integer "students_count"
+    t.integer "students_count", default: 0
     t.bigint "school_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

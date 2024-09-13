@@ -10,7 +10,7 @@ class StudentsController < ApplicationController
                        surname: student.surname,
                        class_id: student.class_id,
                        school_id: student.school_id,
-                       auth_token: student.auth_token
+                       auth_token: student.auth_token           # Убрать в релизе ! ! !
       }
       render json: student_data, status: :created, location: student
       headers["X-Auth-Token"] = student.auth_token
