@@ -11,9 +11,10 @@ class SchoolsController < ApplicationController
           students_count: school_class.students_count
         }
       end
-      render json: { data: classes_data }, status: :ok
+      render json: { data: classes_data }, status: 200
     else
-      render json: { error: 'School not found' }, status: :not_found
+      # Убрать, если не нужен (в задании информации нет)
+      render json: { error: 'Школа не найдена' }, status: 400
     end
   end
 end

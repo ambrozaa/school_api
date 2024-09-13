@@ -39,6 +39,7 @@ class StudentsController < ApplicationController
 
   private
 
+=begin
   def authenticate_request
     token = request.headers['X-Auth-Token']&.split(' ')&.last
     unless valid_token?(token)
@@ -50,6 +51,7 @@ class StudentsController < ApplicationController
     # Проверка, что токен существует в базе данных
     Student.exists?(auth_token: token)
   end
+=end
 
   def student_params
     params.require(:student).permit(:first_name, :last_name, :surname, :class_id, :school_id)
