@@ -34,7 +34,6 @@ class StudentsController < ApplicationController
     else
       render json: { error: 'Некорректная авторизация' }, status: 401
     end
-
   end
 
   private
