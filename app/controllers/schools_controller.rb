@@ -2,7 +2,7 @@ class SchoolsController < ApplicationController
   def classes
     school = School.find(params[:school_id])
     if school
-      classes = school.school_classes
+      classes = school.classes
       classes_data = classes.map do |school_class|
         {
           id: school_class.id,

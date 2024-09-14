@@ -17,7 +17,7 @@ Student.create!(
   first_name: 'Иван',
   last_name: 'Иванов',
   surname: 'Иванович',
-  class_id: class1a.number,
+  class_id: class1a.id,
   school_id: school1.id
 )
 
@@ -25,7 +25,7 @@ Student.create!(
   first_name: 'Мария',
   last_name: 'Петрова',
   surname: 'Ивановна',
-  class_id: class1b.number,
+  class_id: class1b.id,
   school_id: school1.id
 )
 
@@ -33,7 +33,7 @@ Student.create!(
   first_name: 'Алексей',
   last_name: 'Сидоров',
   surname: 'Сидорович',
-  class_id: class2a.number,
+  class_id: class2a.id,
   school_id: school2.id
 )
 
@@ -41,7 +41,7 @@ Student.create!(
   first_name: 'Ольга',
   last_name: 'Михайлова',
   surname: 'Михайловна',
-  class_id: class2b.number,
+  class_id: class2b.id,
   school_id: school2.id
 )
 
