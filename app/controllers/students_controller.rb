@@ -1,5 +1,4 @@
 class StudentsController < ApplicationController
-  # before_action :authenticate_request, only: [:destroy]
 
     def create
     student = Student.new(student_params)
@@ -9,11 +8,10 @@ class StudentsController < ApplicationController
                        last_name: student.last_name,
                        surname: student.surname,
                        class_id: student.class_id,
-                       school_id: student.school_id,
-                       auth_token: student.auth_token           # Убрать в релизе ! ! !
+                       school_id: student.school_id
       }
       render json: student_data, status: :created, location: student
-      headers["X-Auth-Token"] = student.auth_token
+      headers["X-Auth-Token"] = TokenGenerator.generate_token(student.id)
     else
       render json: { error: "Invalid input" }, status: 405
     end
@@ -28,7 +26,7 @@ class StudentsController < ApplicationController
     end
 
     token = request.headers['X-Auth-Token']
-    if @student.auth_token == token
+    if TokenGenerator.valid_token?(@student.id, token)
       @student.destroy
       head :no_content
     else
@@ -37,20 +35,6 @@ class StudentsController < ApplicationController
   end
 
   private
-
-=begin
-  def authenticate_request
-    token = request.headers['X-Auth-Token']&.split(' ')&.last
-    unless valid_token?(token)
-      render json: { error: 'Некорректная авторизация' }, status: 401
-    end
-  end
-
-  def valid_token?(token)
-    # Проверка, что токен существует в базе данных
-    Student.exists?(auth_token: token)
-  end
-=end
 
   def student_params
     params.require(:student).permit(:first_name, :last_name, :surname, :class_id, :school_id)
