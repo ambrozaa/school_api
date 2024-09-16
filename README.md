@@ -1,24 +1,88 @@
-# README
+# School Management System API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Это приложение для управления школами, классами и студентами.
 
-Things you may want to cover:
+## Установка
 
-* Ruby version
+1. **Клонируйте репозиторий:**
 
-* System dependencies
+    ```bash
+    git clone git@github.com:ambrozaa/school_api.git
+    cd school_api
+    ```
 
-* Configuration
+2. **Соберите образы Docker:**
 
-* Database creation
+    ```bash
+    docker-compose build
+    ```
+3. **Инициализация базы данных:**
 
-* Database initialization
+   Выполните миграции и загрузите начальные данные:
 
-* How to run the test suite
+    ```bash
+    docker-compose run web rails db:migrate
+    docker-compose run web rails db:seed
+    ```
+   
+4. **Запустите контейнеры:**
 
-* Services (job queues, cache servers, search engines, etc.)
+    ```bash
+    docker-compose up
+    ```
 
-* Deployment instructions
+## Использование
 
-* ...
+Приложение предоставляет следующие API-эндпоинты:
+
+### Получение студентов класса
+
+- **URL:** `/schools/:school_id/classes/:class_id/students`
+- **Метод:** `GET`
+- **Параметры:**
+    - `school_id` - ID школы
+    - `class_id` - ID класса
+
+### Получение классов школы
+
+- **URL:** `/schools/:school_id/classes`
+- **Метод:** `GET`
+- **Параметры:**
+    - `school_id` - ID школы
+
+### Создание студента
+
+- **URL:** `/students`
+- **Метод:** `POST`
+- **Тело запроса:**
+  ```json
+  {
+    "student": {
+      "first_name": "Имя",
+      "last_name": "Фамилия",
+      "surname": "Отчество",
+      "class_id": 1,
+      "school_id": 1
+    }
+  }
+
+### Удаление студента
+
+- URL: `/students/:id`
+- Метод: `DELETE`
+- Параметры:
+  - `id` - ID студента
+
+### Тестирование
+
+Для выполнения тестов запустите:
+
+```bash
+docker-compose run web rails test
+```
+
+### Зависимости
+
+- Ruby 3.3.0
+- Rails 7.1
+- PostgreSQL 13

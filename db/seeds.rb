@@ -45,6 +45,4 @@ Student.create!(
   school_id: school2.id
 )
 
-
-
 puts "Данные занесены в базу данных."
